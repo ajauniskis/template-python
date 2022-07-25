@@ -1,0 +1,2 @@
+## DEVELOPMENT
+black>=22.6.0

@@ -8,6 +8,7 @@ on:
 env:
   PYTHON_VERSION: "3.10"
   DEPENDENCY_MANAGER: "poetry"
+  ENFORCE_BLACK: true
 
 jobs:
 
@@ -33,4 +34,8 @@ jobs:
         if: ${{ env.DEPENDENCY_MANAGER == 'pip' }}
         uses: ./.github/actions/pip-setup
 
-  
+      - name: Verify Code Style (Black)
+        if: ${{ env.ENFORCE_BLACK == 'true' }}
+        run: |
+          source .venv/bin/activate
+          black --check --verbose .
