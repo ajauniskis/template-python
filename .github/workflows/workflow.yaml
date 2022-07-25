@@ -10,6 +10,7 @@ env:
   DEPENDENCY_MANAGER: "poetry"
   ENFORCE_BLACK: true
   ENFORCE_PYRIGHT: true
+  ENFORCE_BANDIT: false
 
 jobs:
 
@@ -46,3 +47,9 @@ jobs:
         run: |
           source .venv/bin/activate
           pyright --stats .
+
+      - name: Code Security Check (Bandit)
+        if: ${{ env.ENFORCE_BANDIT == 'true' }} 
+        run: |
+          source .venv/bin/activate
+          bandit -c pyproject.toml -r .
