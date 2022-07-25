@@ -26,3 +26,9 @@ exclude = [
     ".venv"
     ]
 reportMissingImports = true
+
+[tool.bandit]
+exclude_dirs = [
+    "**/__pycache__",
+    ".venv"
+    ]
