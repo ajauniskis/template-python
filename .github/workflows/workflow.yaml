@@ -9,6 +9,7 @@ env:
   PYTHON_VERSION: "3.10"
   DEPENDENCY_MANAGER: "poetry"
   ENFORCE_BLACK: true
+  ENFORCE_PYRIGHT: true
 
 jobs:
 
@@ -39,3 +40,9 @@ jobs:
         run: |
           source .venv/bin/activate
           black --check --verbose .
+
+      - name: Code Type Check (Pyright)
+        if: ${{ env.ENFORCE_PYRIGHT == 'true' }}
+        run: |
+          source .venv/bin/activate
+          pyright --stats .
