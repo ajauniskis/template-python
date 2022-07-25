@@ -10,6 +10,8 @@ python = "^3.10"
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
 pyright = "^1.1.263"
+bandit = "^1.7.4"
+toml = "^0.10.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -24,3 +26,9 @@ exclude = [
     ".venv"
     ]
 reportMissingImports = true
+
+[tool.bandit]
+exclude_dirs = [
+    "**/__pycache__",
+    ".venv"
+    ]
