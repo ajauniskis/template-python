@@ -1,5 +1,5 @@
 name: Main Workflow
-on: 
+on:
   push:
     branches: [ main ]
   pull_request:
@@ -50,13 +50,13 @@ jobs:
           pyright --stats .
 
       - name: Code Security Check (Bandit)
-        if: ${{ env.ENFORCE_BANDIT == 'true' }} 
+        if: ${{ env.ENFORCE_BANDIT == 'true' }}
         run: |
           source .venv/bin/activate
           bandit -c pyproject.toml -r .
 
       - name: Verify Code Style (Flake8)
-        if: ${{ env.ENFORCE_FLAKE8 == 'true' }} 
+        if: ${{ env.ENFORCE_FLAKE8 == 'true' }}
         run: |
           source .venv/bin/activate
           flake8 .
