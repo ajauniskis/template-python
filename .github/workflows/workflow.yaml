@@ -15,4 +15,4 @@ env:
 jobs:
 
   lint:
-    uses: .github/workflows/lint.yaml
+    uses: ./.github/workflows/lint.yaml
