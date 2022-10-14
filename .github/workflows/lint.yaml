@@ -1,11 +1,24 @@
 name: Lint
 on:
   workflow_call
+    inputs:
+      ENFORCE_BLACK:
+        required: true
+        type: boolean
+      ENFORCE_PYRIGHT:
+        required: true
+        type: boolean
+      ENFORCE_BANDIT:
+        required: true
+        type: boolean
+      ENFORCE_FLAKE8:
+        required: true
+        type: boolean
 jobs:
 
   python-black:
     name: Verify Code Style (Black)
-    if: ${{ env.ENFORCE_BLACK == 'true' }}
+    if: ${{ inputs.ENFORCE_BLACK == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -25,7 +38,7 @@ jobs:
 
   python-pyright:
     name: Code Type Check (Pyright)
-    if: ${{ env.ENFORCE_PYRIGHT == 'true' }}
+    if: ${{ inputs.ENFORCE_PYRIGHT == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -45,7 +58,7 @@ jobs:
 
   python-bandit:
     name: Code Security Check (Bandit)
-    if: ${{ env.ENFORCE_BANDIT == 'true' }}
+    if: ${{ inputs.ENFORCE_BANDIT == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -65,7 +78,7 @@ jobs:
 
   python-flake8:
     name: Verify Code Style (Flake8)
-    if: ${{ env.ENFORCE_FLAKE8 == 'true' }}
+    if: ${{ inputs.ENFORCE_FLAKE8 == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
