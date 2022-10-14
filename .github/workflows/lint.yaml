@@ -1,0 +1,84 @@
+name: Lint
+on:
+  workflow_call
+jobs:
+
+  python-black:
+    name: Verify Code Style (Black)
+    if: ${{ env.ENFORCE_BLACK == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          architecture: "x64"
+
+      - name: Install Python Dependencies
+        uses: ./.github/actions/poetry-setup
+
+      - name: Lint Python files
+        run: poetry run black --check --verbose .
+
+  python-pyright:
+    name: Code Type Check (Pyright)
+    if: ${{ env.ENFORCE_PYRIGHT == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          architecture: "x64"
+
+      - name: Install Python Dependencies
+        uses: ./.github/actions/poetry-setup
+
+      - name: Static type check
+        run: poetry run pyright --stats .
+
+  python-bandit:
+    name: Code Security Check (Bandit)
+    if: ${{ env.ENFORCE_BANDIT == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          architecture: "x64"
+
+      - name: Install Python Dependencies
+        uses: ./.github/actions/poetry-setup
+
+      - name: Security Check
+        run: poetry run bandit -c pyproject.toml -r .
+
+  python-flake8:
+    name: Verify Code Style (Flake8)
+    if: ${{ env.ENFORCE_FLAKE8 == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          architecture: "x64"
+
+      - name: Install Python Dependencies
+        uses: ./.github/actions/poetry-setup
+
+      - name: Check Code Style
+        run: poetry run flake8 . -v
