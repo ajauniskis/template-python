@@ -1,17 +1,21 @@
 name: Lint
 on:
-  workflow_call
+  workflow_call:
     inputs:
       ENFORCE_BLACK:
+        default: true
         required: true
         type: boolean
       ENFORCE_PYRIGHT:
+        default: true
         required: true
         type: boolean
       ENFORCE_BANDIT:
+        default: true
         required: true
         type: boolean
       ENFORCE_FLAKE8:
+        default: true
         required: true
         type: boolean
 jobs:
