@@ -22,7 +22,7 @@ jobs:
 
   python-black:
     name: Verify Code Style (Black)
-    if: ${{ inputs.ENFORCE_BLACK == 'true' }}
+    if: ${{ inputs.ENFORCE_BLACK }} == 'true' 
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -42,7 +42,7 @@ jobs:
 
   python-pyright:
     name: Code Type Check (Pyright)
-    if: ${{ inputs.ENFORCE_PYRIGHT == 'true' }}
+    if: ${{ inputs.ENFORCE_PYRIGHT }} == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -62,7 +62,7 @@ jobs:
 
   python-bandit:
     name: Code Security Check (Bandit)
-    if: ${{ inputs.ENFORCE_BANDIT == 'true' }}
+    if: ${{ inputs.ENFORCE_BANDIT }} == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -82,7 +82,7 @@ jobs:
 
   python-flake8:
     name: Verify Code Style (Flake8)
-    if: ${{ inputs.ENFORCE_FLAKE8 == 'true' }}
+    if: ${{ inputs.ENFORCE_FLAKE8 }} == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
