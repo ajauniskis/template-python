@@ -34,7 +34,6 @@ jobs:
         with:
           PYTHON_VERSION: ${{ inputs.PYTHON_VERSION }}
 
-
       - name: Lint Python files
         run: poetry run black --check --verbose .
 
@@ -43,17 +42,14 @@ jobs:
     if: ${{ inputs.ENFORCE_PYRIGHT == 'true' }}
     runs-on: ubuntu-latest
     steps:
+
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: ./.github/actions/python-setup
         with:
-          python-version: ${{ inputs.PYTHON_VERSION }}
-          architecture: "x64"
-
-      - name: Install Python Dependencies
-        uses: ./.github/actions/poetry-setup
+          PYTHON_VERSION: ${{ inputs.PYTHON_VERSION }}
 
       - name: Static type check
         run: poetry run pyright --stats .
@@ -63,17 +59,14 @@ jobs:
     if: ${{ inputs.ENFORCE_BANDIT == 'true' }}
     runs-on: ubuntu-latest
     steps:
+
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Set up Python== 'true'
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: ./.github/actions/python-setup
         with:
-          python-version: ${{ inputs.PYTHON_VERSION }}
-          architecture: "x64"
-
-      - name: Install Python Dependencies
-        uses: ./.github/actions/poetry-setup
+          PYTHON_VERSION: ${{ inputs.PYTHON_VERSION }}
 
       - name: Security Check
         run: poetry run bandit -c pyproject.toml -r .
@@ -83,17 +76,14 @@ jobs:
     if: ${{ inputs.ENFORCE_FLAKE8 == 'true' }}
     runs-on: ubuntu-latest
     steps:
+
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: ./.github/actions/python-setup
         with:
-          python-version: ${{ inputs.PYTHON_VERSION }}
-          architecture: "x64"
-
-      - name: Install Python Dependencies
-        uses: ./.github/actions/poetry-setup
+          PYTHON_VERSION: ${{ inputs.PYTHON_VERSION }}
 
       - name: Check Code Style
         run: poetry run flake8 . -v
