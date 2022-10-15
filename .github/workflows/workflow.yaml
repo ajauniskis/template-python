@@ -7,17 +7,13 @@ on:
 
 env:
   PYTHON_VERSION: "3.10"
-  ENFORCE_BLACK: true
-  ENFORCE_PYRIGHT: true
-  ENFORCE_BANDIT: false
-  ENFORCE_FLAKE8: false
 
 jobs:
 
   lint:
     uses: ./.github/workflows/lint.yaml
     with: 
-      ENFORCE_BLACK: ${{ env.ENFORCE_BLACK }}
-      ENFORCE_PYRIGHT: ${{ env.ENFORCE_PYRIGHT }}
-      ENFORCE_BANDIT: ${{ env.ENFORCE_BANDIT }}
-      ENFORCE_FLAKE8: ${{ env.ENFORCE_BLACK }}
+      ENFORCE_BLACK: true
+      ENFORCE_PYRIGHT: true
+      ENFORCE_BANDIT: false
+      ENFORCE_FLAKE8: false
