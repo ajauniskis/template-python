@@ -17,3 +17,4 @@ jobs:
       ENFORCE_PYRIGHT: "true"
       ENFORCE_BANDIT: "false"
       ENFORCE_FLAKE8: "false"
+      PYTHON_VERSION: ${{ env.PYTHON_VERSION }}

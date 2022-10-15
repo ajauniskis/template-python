@@ -4,20 +4,20 @@ on:
     inputs:
       ENFORCE_BLACK:
         default: "true"
-        required: true
         type: string
       ENFORCE_PYRIGHT:
         default: "true"
-        required: true
         type: string
       ENFORCE_BANDIT:
         default: "true"
-        required: true
         type: string
       ENFORCE_FLAKE8:
         default: "true"
-        required: true
         type: string
+      PYTHON_VERSION:
+        default: "3.10"
+        type: string
+
 jobs:
 
   python-black:
@@ -31,7 +31,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: ${{ inputs.PYTHON_VERSION }}
           architecture: "x64"
 
       - name: Install Python Dependencies
@@ -51,7 +51,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: ${{ inputs.PYTHON_VERSION }}
           architecture: "x64"
 
       - name: Install Python Dependencies
@@ -71,7 +71,7 @@ jobs:
       - name: Set up Python== 'true'
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: ${{ inputs.PYTHON_VERSION }}
           architecture: "x64"
 
       - name: Install Python Dependencies
@@ -91,7 +91,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: ${{ inputs.PYTHON_VERSION }}
           architecture: "x64"
 
       - name: Install Python Dependencies
