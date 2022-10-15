@@ -38,5 +38,5 @@ exclude_dirs = [
     ]
 
 [tool.flake8]
-max-line-length = 1
+max-line-length = 88
 exclude = [".venv", "__pycache__"]
