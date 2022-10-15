@@ -8,6 +8,7 @@ on:
 jobs:
 
   lint:
+    name: Lint
     uses: ./.github/workflows/lint.yaml
     with: 
       ENFORCE_BLACK: "true"
@@ -16,5 +17,13 @@ jobs:
       ENFORCE_FLAKE8: "false"
 
   test:
+    name: Test
     uses: ./.github/workflows/test.yaml
     needs: lint
+
+  deploy:
+    name: Deploy
+    if: success() && github.ref == 'refs/heads/main'
+    uses: /.github/workflows/test.yaml
+    needs: test
+    secrets: inherit
