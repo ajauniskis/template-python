@@ -14,3 +14,7 @@ jobs:
       ENFORCE_PYRIGHT: "true"
       ENFORCE_BANDIT: "false"
       ENFORCE_FLAKE8: "false"
+
+  test:
+    uses: ./.github/workflows/test.yaml
+    needs: lint
