@@ -12,3 +12,20 @@ poetry_install:
 
 run:
 	@echo "Run target in Makefile not configured."
+
+black:
+	poetry run black --check --verbose .
+
+pyright:
+	poetry run pyright --stats .
+
+bandit:
+	poetry run bandit -c pyproject.toml -r .
+
+flake:
+	poetry run flake8 . -v
+
+lint: black pyright bandit flake
+
+test:
+	poetry run pytest -v
