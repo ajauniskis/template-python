@@ -25,17 +25,12 @@ jobs:
     if: ${{ inputs.ENFORCE_BLACK == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: ./.github/actions/python-setup
         with:
-          python-version: ${{ inputs.PYTHON_VERSION }}
-          architecture: "x64"
+          PYTHON_VERSION: ${{ inputs.PYTHON_VERSION }}
 
-      - name: Install Python Dependencies
-        uses: ./.github/actions/poetry-setup
 
       - name: Lint Python files
         run: poetry run black --check --verbose .
