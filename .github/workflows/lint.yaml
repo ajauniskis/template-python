@@ -3,26 +3,26 @@ on:
   workflow_call:
     inputs:
       ENFORCE_BLACK:
-        default: true
+        default: "true"
         required: true
-        type: boolean
+        type: string
       ENFORCE_PYRIGHT:
-        default: true
+        default: "true"
         required: true
-        type: boolean
+        type: string
       ENFORCE_BANDIT:
-        default: true
+        default: "true"
         required: true
-        type: boolean
+        type: string
       ENFORCE_FLAKE8:
-        default: true
+        default: "true"
         required: true
-        type: boolean
+        type: string
 jobs:
 
   python-black:
     name: Verify Code Style (Black)
-    if: ${{ inputs.ENFORCE_BLACK }} == 'true' 
+    if: ${{ inputs.ENFORCE_BLACK }} == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
