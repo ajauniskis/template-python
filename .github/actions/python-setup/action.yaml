@@ -1,8 +1,18 @@
-name : Poetry Setup
+name: Python Setup
+inputs:
+  PYTHON_VERSION:
+    default: "3.10"
+    type: string
 
 runs:
   using: composite
   steps:
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.PYTHON_VERSION }}
+        architecture: "x64"
 
     - name: Install Poetry
       shell: bash

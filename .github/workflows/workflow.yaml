@@ -5,58 +5,25 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  PYTHON_VERSION: "3.10"
-  DEPENDENCY_MANAGER: "poetry"
-  ENFORCE_BLACK: true
-  ENFORCE_PYRIGHT: true
-  ENFORCE_BANDIT: false
-  ENFORCE_FLAKE8: false
-
 jobs:
 
-  code-quality:
-    name: Code Quality
-    runs-on: ubuntu-latest
-    steps:
+  lint:
+    name: Lint
+    uses: ./.github/workflows/lint.yaml
+    with: 
+      ENFORCE_BLACK: "true"
+      ENFORCE_PYRIGHT: "true"
+      ENFORCE_BANDIT: "false"
+      ENFORCE_FLAKE8: "false"
 
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+  test:
+    name: Test
+    uses: ./.github/workflows/test.yaml
+    needs: lint
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          architecture: "x64"
-
-      - name: Install Python Dependencies - Poetry
-        if: ${{ env.DEPENDENCY_MANAGER == 'poetry' }}
-        uses: ./.github/actions/poetry-setup
-
-      - name: Install Python Dependencies - Pip
-        if: ${{ env.DEPENDENCY_MANAGER == 'pip' }}
-        uses: ./.github/actions/pip-setup
-
-      - name: Verify Code Style (Black)
-        if: ${{ env.ENFORCE_BLACK == 'true' }}
-        run: |
-          source .venv/bin/activate
-          black --check --verbose .
-
-      - name: Code Type Check (Pyright)
-        if: ${{ env.ENFORCE_PYRIGHT == 'true' }}
-        run: |
-          source .venv/bin/activate
-          pyright --stats .
-
-      - name: Code Security Check (Bandit)
-        if: ${{ env.ENFORCE_BANDIT == 'true' }}
-        run: |
-          source .venv/bin/activate
-          bandit -c pyproject.toml -r .
-
-      - name: Verify Code Style (Flake8)
-        if: ${{ env.ENFORCE_FLAKE8 == 'true' }}
-        run: |
-          source .venv/bin/activate
-          flake8 . -v
+  deploy:
+    name: Deploy
+    if: success() && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy.yaml
+    needs: test
+    secrets: inherit
