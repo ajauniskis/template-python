@@ -42,7 +42,7 @@ jobs:
 
   python-pyright:
     name: Code Type Check (Pyright)
-    if: ${{ inputs.ENFORCE_PYRIGHT = 'true' }}
+    if: ${{ inputs.ENFORCE_PYRIGHT == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -68,7 +68,7 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Set up Python== 'true'
         uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PYTHON_VERSION }}
